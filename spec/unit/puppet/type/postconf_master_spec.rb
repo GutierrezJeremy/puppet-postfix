@@ -50,7 +50,6 @@ describe Puppet::Type.type(:postconf_master) do
     end
   end
 
-  # rubocop:disable Lint/BooleanSymbol
   describe 'private =>' do
     [true, false, :true, :false, 'true', 'false', :undef, :y, 'y', :n, 'n', '-'].each do |priv|
       it "accepts #{priv}" do
@@ -84,7 +83,6 @@ describe Puppet::Type.type(:postconf_master) do
   end
   # rubocop:enable Lint/BooleanSymbol
 
-  # rubocop:disable Lint/BooleanSymbol
   describe 'unprivileged =>' do
     [true, false, :true, :false, 'true', 'false', :undef, :y, 'y', :n, 'n', '-'].each do |unpriv|
       it "accepts #{unpriv}" do
@@ -118,7 +116,6 @@ describe Puppet::Type.type(:postconf_master) do
   end
   # rubocop:enable Lint/BooleanSymbol
 
-  # rubocop:disable Lint/BooleanSymbol
   describe 'chroot =>' do
     [true, false, :true, :false, 'true', 'false', :undef, :y, 'y', :n, 'n', '-'].each do |chroot|
       it "accepts #{chroot}" do

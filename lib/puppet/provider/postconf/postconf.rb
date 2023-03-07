@@ -9,7 +9,7 @@ Puppet::Type.type(:postconf).provide(:postconf, parent: Puppet::Provider::Postco
         # unfortunately we need to parse stderr warnings here to handle unused/unknown parameters
         m = %r{^(?:\S+/postconf: warning: \S+/main.cf: unused parameter: )?([^=]+?) *= *(.*)$}.match(line)
         unless m
-          if %r{^\S+/postconf: warning: }.match(line)
+          if %r{^\S+/postconf: warning: }.match?
             warn(line)
             next
           end

@@ -40,7 +40,7 @@ Puppet::Type.newtype(:postmulti) do
   newparam(:name, namevar: true) do
     desc "Name of the postmulti instance. Must must start with 'postfix-'"
     validate do |value|
-      unless value =~ %r{^postfix\-}
+      unless value match? %r{^postfix\-}
         raise ArgumentError,
               'Invalid name: %{name}. ' \
                      'New instance name must start with "postfix-"' % { name: value }

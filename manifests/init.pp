@@ -91,7 +91,7 @@ class postfix (
   Hash[String, Any] $main_config,
   Hash[String, Hash[String, Any]] $master_services,
 ) {
-  Class { '::postfix::package':  }
+  Class { '::postfix::package': }
   -> Class { '::postfix::config': }
   ~> Class { '::postfix::service': }
 }
