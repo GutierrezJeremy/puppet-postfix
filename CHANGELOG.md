@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Remove the confine on EOL postfix version for postconf_master provider ([#9])
+- Convert to PDK module
 
 ## Release [1.0.2] - 2018-10-28
 This release fixes postfix reloading on config changes.
