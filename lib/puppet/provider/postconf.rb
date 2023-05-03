@@ -1,5 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'confine', 'postfix_version'))
 
+# The `postconf` type enables you to set or rest postconf parameters.
 class Puppet::Provider::Postconf < Puppet::Provider
   def self.initvars
     super

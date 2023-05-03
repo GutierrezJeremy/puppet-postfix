@@ -1,6 +1,7 @@
 require 'puppet/util'
 require 'puppet/confine'
 
+# Class documentation
 class Puppet::Confine::PostfixVersion < Puppet::Confine
   def self.summarize(confines)
     confines.map(&:values).flatten.uniq.reject { |value| confines[0].pass?(value) }

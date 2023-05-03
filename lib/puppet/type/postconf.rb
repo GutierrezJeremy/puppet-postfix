@@ -1,3 +1,4 @@
+# this class do something
 Puppet::Type.newtype(:postconf) do
   @doc = "Create a new postconf entry.
 

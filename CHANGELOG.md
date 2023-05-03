@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fix puppet-lint and rubocop offenses
+- Fix some unit test
 
 ## Release [1.0.2] - 2018-10-28
 This release fixes postfix reloading on config changes.

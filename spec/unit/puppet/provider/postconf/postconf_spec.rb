@@ -42,13 +42,13 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
   end
 
   before(:each) do
-    described_class.stubs(:postmulti_cmd).with('-l').returns(postmulti_n.join("\n"))
-    described_class.stubs(:postconf_cmd).with('-n').returns(postconf_n.join("\n"))
+    described_class.stub(:postmulti_cmd).with('-l').and_return(postmulti_n.join("\n"))
+    described_class.stub(:postconf_cmd).with('-n').and_return(postconf_n.join("\n"))
   end
 
   describe 'instances' do
     it 'has an instance method' do
-      expect(described_class).to respond_to :instances
+      expect(described_class).to respond_to(:instances)
     end
 
     it 'prefetches the values' do
@@ -58,7 +58,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
   describe 'prefetch' do
     it 'has a prefetch method' do
-      expect(described_class).to respond_to :prefetch
+      expect(described_class).to respond_to(:prefetch)
     end
 
     it 'correctly prefetches string values' do
@@ -78,7 +78,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
   describe 'when creating a postconf resource' do
     it 'calls postconf to set the value' do
-      provider.class.expects(:postconf_cmd).with('myhostname=foo.bar')
+      provider.class.expects(:postconf_cmd).with('-c', '/etc/postfix-foobar', 'myhostname=foo.bar')
       provider.create
       provider.flush
     end
@@ -86,7 +86,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
   describe 'when deleting a postconf resource' do
     it 'calls postconf to unset the parameter' do
-      provider.class.expects(:postconf_cmd).with('-X', 'myhostname')
+      provider.expects(:postconf_cmd).with('-X', 'myhostname')
       provider.destroy
       provider.flush
     end
@@ -103,7 +103,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
     describe 'when creating a postconf resource' do
       it 'calls postconf to set the value' do
-        provider.class.expects(:postconf_cmd).with('myhostname=foo, bar')
+        provider.expects(:postconf_cmd).with('myhostname=foo, bar')
         provider.create
         provider.flush
       end
@@ -153,9 +153,9 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
     end
 
     before(:each) do
-      described_class.stubs(:postmulti_cmd).with('-l').returns(postmulti_n.join("\n"))
-      described_class.stubs(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-n').returns(postconf_foobar_n.join("\n"))
-      described_class.stubs(:postconf_cmd).with('-n').returns(postconf_n.join("\n"))
+      described_class.stub(:postmulti_cmd).with('-l').and_return(postmulti_n.join("\n"))
+      described_class.stub(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-n').and_return(postconf_foobar_n.join("\n"))
+      described_class.stub(:postconf_cmd).with('-n').and_return(postconf_n.join("\n"))
     end
 
     describe 'instances' do
@@ -166,7 +166,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
     describe 'when creating a postconf resource' do
       it 'calls postconf to set the value' do
-        provider.class.expects(:postconf_cmd).with('-c', '/etc/postfix-foobar', 'myhostname=foo.bar')
+       :provider.expects(:postconf_cmd).with('-c', '/etc/postfix-foobar', 'myhostname=foo.bar')
         provider.create
         provider.flush
       end
@@ -174,7 +174,7 @@ describe Puppet::Type.type(:postconf).provider(:postconf) do
 
     describe 'when deleting a postconf resource' do
       it 'calls postconf to unset the parameter' do
-        provider.class.expects(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-X', 'myhostname')
+        provider.expects(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-X', 'myhostname')
         provider.destroy
         provider.flush
       end

@@ -60,8 +60,8 @@ describe Puppet::Type.type(:postconf_master).provider(:postconf) do
   end
 
   before(:each) do
-    described_class.stubs(:postmulti_cmd).with('-l').returns(postmulti_n.join("\n"))
-    described_class.stubs(:postconf_cmd).with('-F').returns(postconf_F.join("\n"))
+    described_class.stub(:postmulti_cmd).with('-l').and_return(postmulti_n.join("\n"))
+    described_class.stub(:postconf_cmd).with('-F').and_return(postconf_F.join("\n"))
   end
 
   describe 'instances' do
@@ -152,9 +152,9 @@ describe Puppet::Type.type(:postconf_master).provider(:postconf) do
     end
 
     before(:each) do
-      described_class.stubs(:postmulti_cmd).with('-l').returns(postmulti_n.join("\n"))
-      described_class.stubs(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-F').returns(postconf_foobar_F.join("\n"))
-      described_class.stubs(:postconf_cmd).with('-F').returns(postconf_F.join("\n"))
+      described_class.stub(:postmulti_cmd).with('-l').and_return(postmulti_n.join("\n"))
+      described_class.stub(:postconf_cmd).with('-c', '/etc/postfix-foobar', '-F').and_return(postconf_foobar_F.join("\n"))
+      described_class.stub(:postconf_cmd).with('-F').and_return(postconf_F.join("\n"))
     end
 
     describe 'instances' do

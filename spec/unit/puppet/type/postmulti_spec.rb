@@ -32,7 +32,7 @@ describe Puppet::Type.type(:postmulti) do
     it 'does not support other values' do
       expect {
         described_class.new(name: name,
-                            ensure: :yolo)
+                            ensure: value)
       }.to raise_error(Puppet::Error, %r{Invalid value})
     end
 
@@ -49,11 +49,11 @@ describe Puppet::Type.type(:postmulti) do
     end
 
     it 'for absent calls destroy on the provider' do
-      provider = mock 'provider'
+      provider = double 'provider'
       provider.expects(:destroy)
 
       resource = described_class.new(name: name, ensure: :absent)
-      resource.stubs(:provider).returns(provider)
+      resource.stub(:provider).and_return(provider)
       resource.property(:ensure).sync
     end
   end
@@ -73,17 +73,17 @@ describe Puppet::Type.type(:postmulti) do
   describe '.retrive' do
     subject(:resource) { described_class.new(name: name) }
 
-    let(:provider) { mock 'provider' }
+    let(:provider) { double 'provider' }
 
     it 'returns the ensure value from the provider' do
-      provider.stubs(:ensure).returns(:FOOBAR)
-      resource.stubs(:provider).returns(provider)
+      provider.stub(:ensure).and_return(:FOOBAR)
+      resource.stub(:provider).and_return(provider)
 
       expect(resource.property(:ensure).retrieve).to eq(:FOOBAR)
     end
 
     it 'w/o a providers it is absent' do
-      resource.stubs(:provider).returns(nil)
+      resource.stub(:provider).and_return(nil)
 
       expect(resource.property(:ensure).retrieve).to eq(:absent)
     end
@@ -92,10 +92,10 @@ describe Puppet::Type.type(:postmulti) do
   describe '.create' do
     subject(:resource) { described_class.new(name: name) }
 
-    let(:provider) { mock 'provider' }
+    let(:provider) { double 'provider' }
 
     it 'creates the resource' do
-      resource.stubs(:provider).returns(provider)
+      resource.stub(:provider).and_return(provider)
       provider.expects(:create)
 
       resource.create
@@ -105,11 +105,11 @@ describe Puppet::Type.type(:postmulti) do
   describe '.activate' do
     subject(:resource) { described_class.new(name: name) }
 
-    let(:provider) { mock 'provider' }
+    let(:provider) { double 'provider' }
 
     it 'activates the resource' do
-      resource.stubs(:provider).returns(provider)
-      resource.stubs(:create)
+      resource.stub(:provider).and_return(provider)
+      resource.stub(:create)
       provider.expects(:activate)
 
       resource.activate
@@ -119,11 +119,11 @@ describe Puppet::Type.type(:postmulti) do
   describe '.deactivate' do
     subject(:resource) { described_class.new(name: name) }
 
-    let(:provider) { mock 'provider' }
+    let(:provider) { double 'provider' }
 
     it 'deactivated the resource' do
-      resource.stubs(:provider).returns(provider)
-      provider.stubs(:create)
+      resource.stub(:provider).and_return(provider)
+      provider.stub(:create)
       provider.expects(:deactivate)
 
       resource.deactivate

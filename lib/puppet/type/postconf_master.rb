@@ -1,26 +1,20 @@
 Puppet::Type.newtype(:postconf_master) do
   @doc = "Create a new postconf master.cf entry.
-
    Puppet does not really support generating/prefetching resources with multiple
    namevars, so this type represents the whole service identifier in the :name
    property. This includes the postmulti instance.
    Valid formats are:
      * service/type
      * instance::service/type
-
-
     **Autorequires:** If Puppet is managing the postmulti instance for this entry,
     it will be autorequired.
-
     Example:
-
         postconf_master { 'smtp/inet':
           command => 'postscreen'
         }
   "
-
   ensurable
-
+  # The postconf_masterBoolean to manage newproperty entries
   class PostconfMasterBoolean < Puppet::Property
     def unsafe_munge(value)
       # downcase strings
@@ -39,6 +33,7 @@ Puppet::Type.newtype(:postconf_master) do
     end
   end
 
+  # The postconf_masterString to manage newproperty entries
   class PostconfMasterString < Puppet::Property
     def unsafe_munge(value)
       case value

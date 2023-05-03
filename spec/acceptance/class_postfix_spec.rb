@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'class ::postfix' do
+describe 'class postfix' do
   let(:manifest) do
     <<-MANIFEST
       include postfix
